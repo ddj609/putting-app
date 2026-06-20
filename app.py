@@ -63,7 +63,7 @@ if st.session_state["logged_in_user"] is None:
                 save_db(db)
                 st.success("Account created successfully! Please log in above.")
     st.stop()
-Use code with caution.Section 2 of 2pythoncurrent_user = st.session_state["logged_in_user"]
+current_user = st.session_state["logged_in_user"]
 user_credits = db[current_user]["credits"]
 
 if st.sidebar.button("Logout"):

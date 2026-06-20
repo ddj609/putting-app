@@ -170,8 +170,7 @@ if file1 and file2 and file3 and file4:
     col1, col2 = st.columns(2)
     placeholders = [col1.empty(), col2.empty(), col1.empty(), col2.empty()]
     labels = ["FACE-ON VIEW", "DOWN-THE-LINE VIEW", "OVERHEAD VIEW", "TARGET-LINE VIEW"]
-    
-    for frame_idx in range(total_frames):
+for frame_idx in range(total_frames):
         frames = []
         for c_idx, cap in enumerate(caps):
             ret, frame = cap.read()
@@ -180,14 +179,12 @@ if file1 and file2 and file3 and file4:
                 h, w, _ = frame.shape
                 cv2.line(frame, (w // 2, 0), (w // 2, h), (0, 255, 0), 1)
                 cv2.putText(frame, labels[c_idx], (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
-                
                 if frame_idx == start_stroke_frame:
                     cv2.putText(frame, "PAUSE: BACKSTROKE START", (20, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
                 elif frame_idx == peak_backstroke_frame:
                     cv2.putText(frame, "PAUSE: MAX EXTENSION", (20, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
                 elif frame_idx == impact_frame:
                     cv2.putText(frame, "PAUSE: BALL IMPACT", (20, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
-                
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frames.append(frame_rgb)
             else:
@@ -205,14 +202,13 @@ if file1 and file2 and file3 and file4:
         
     st.balloons()
     st.success("✅ Analysis complete! 1 credit was consumed from your account balance.")
-
+    
     pdf_filename = "Putting_Analysis_Report.pdf"
     
     def build_pdf(filename, lang):
         doc = SimpleDocTemplate(filename, pagesize=letter, rightMargin=40, leftMargin=40, topMargin=40, bottomMargin=40)
         styles = getSampleStyleSheet()
         story = []
-        
         title_style = ParagraphStyle('TitleStyle', parent=styles['Heading1'], fontSize=22, textColor=colors.HexColor("#1b4332"), spaceAfter=15, alignment=1)
         section_style = ParagraphStyle('SectionStyle', parent=styles['Heading2'], fontSize=14, textColor=colors.HexColor("#2d6a4f"), spaceBefore=15, spaceAfter=10)
         body_style = ParagraphStyle('BodyStyle', parent=styles['BodyText'], fontSize=11, leading=15, spaceAfter=8)
@@ -221,9 +217,57 @@ if file1 and file2 and file3 and file4:
         story.append(Paragraph(TEXTS[lang]["title"], title_style))
         story.append(Paragraph(TEXTS[lang]["intro"], body_style))
         story.append(Spacer(1, 15))
-        
         story.append(Paragraph(TEXTS[lang]["metrics"], section_style))
+        
         data = [
             [TEXTS[lang]["tempo"], tempo_ratio],
             [TEXTS[lang]["max_back"], max_backstroke_dist],
-[TEXTS[lang]["impact_v"], impact_velocity],[TEXTS[lang]["face_angle"], face_angle_at_impact],[TEXTS[lang]["shaft_lean"], shaft_angle_change]]t = Table(data, colWidths=[240, 240])t.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f4f9f4")),('TEXTCOLOR', (0,0), (-1,-1), colors.HexColor("#1b4332")),('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#d8f3dc")),('BOTTOMPADDING', (0,0), (-1,-1), 6),('TOPPADDING', (0,0), (-1,-1), 6)]))story.append(t)story.append(Spacer(1, 15))story.append(Paragraph(TEXTS[lang]["diagnosis"], section_style))story.append(Paragraph(TEXTS[lang]["flick_detected"] if wrist_flick_flag else TEXTS[lang]["flick_clean"], alert_style if wrist_flick_flag else body_style))story.append(Paragraph(TEXTS[lang]["loop_detected"] if loop_path_flag else TEXTS[lang]["loop_clean"], alert_style if loop_path_flag else body_style))story.append(Spacer(1, 15))story.append(Paragraph(TEXTS[lang]["advice_title"], section_style))story.append(Paragraph(TEXTS[lang]["drill1"], body_style))story.append(Paragraph(TEXTS[lang]["drill2"], body_style))doc.build(story)build_pdf(pdf_filename, language)with open(pdf_filename, "rb") as pdf_file:PDFbyte = pdf_file.read()st.markdown("---")st.header("📥 Step 2: Download Report For Offline Use")st.download_button(label=f"📥 Download Printable Analysis Report ({language})",data=PDFbyte,file_name=f"Putting_Stroke_Analysis_{language}.pdf",mime='application/octet-stream')for p in paths:if os.path.exists(p):os.remove(p)if os.path.exists(pdf_filename):os.remove(pdf_filename)st.rerun()else:st.info("ℹ️ Please upload all 4 camera views in the left sidebar menu to begin running synchronized computer vision analytics profiles.")
+            [TEXTS[lang]["impact_v"], impact_velocity],
+            [TEXTS[lang]["face_angle"], face_angle_at_impact],
+            [TEXTS[lang]["shaft_lean"], shaft_angle_change]
+        ]
+        
+        t = Table(data, colWidths=[240, 240])
+        t.setStyle(TableStyle([
+            ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f4f9f4")),
+            ('TEXTCOLOR', (0,0), (-1,-1), colors.HexColor("#1b4332")),
+            ('GRID', (0,0), (-1,-1), 0.5, colors.HexColor("#d8f3dc")),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+            ('TOPPADDING', (0,0), (-1,-1), 6)
+        ]))
+        story.append(t)
+        story.append(Spacer(1, 15))
+        story.append(Paragraph(TEXTS[lang]["diagnosis"], section_style))
+        story.append(Paragraph(TEXTS[lang]["flick_detected"] if wrist_flick_flag else TEXTS[lang]["flick_clean"], alert_style if wrist_flick_flag else body_style))
+        story.append(Paragraph(TEXTS[lang]["loop_detected"] if loop_path_flag else TEXTS[lang]["loop_clean"], alert_style if loop_path_flag else body_style))
+        story.append(Spacer(1, 15))
+        story.append(Paragraph(TEXTS[lang]["advice_title"], section_style))
+        story.append(Paragraph(TEXTS[lang]["drill1"], body_style))
+        story.append(Paragraph(TEXTS[lang]["drill2"], body_style))
+        doc.build(story)
+
+    build_pdf(pdf_filename, language)
+    
+    with open(pdf_filename, "rb") as pdf_file:
+        PDFbyte = pdf_file.read()
+        
+    st.markdown("---")
+    st.header("📥 Step 2: Download Report For Offline Use")
+    st.download_button(
+        label=f"📥 Download Printable Analysis Report ({language})",
+        data=PDFbyte,
+        file_name=f"Putting_Stroke_Analysis_{language}.pdf",
+        mime='application/octet-stream'
+    )
+    
+    for p in paths:
+        if os.path.exists(p):
+            os.remove(p)
+            
+    if os.path.exists(pdf_filename):
+        os.remove(pdf_filename)
+        
+    st.rerun()
+else:
+    st.info("ℹ️ Please upload all 4 camera views in the left sidebar menu to begin running synchronized computer vision analytics profiles.")    
+    

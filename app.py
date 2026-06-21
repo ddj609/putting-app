@@ -140,32 +140,32 @@ TEXTS = {
     }
 }
 
-if file1 and file2 and file3 and file4:
-    st.success("All 4 camera profiles received. Initializing processing models...")
+    if file1 and file2 and file3 and file4:
+        st.success("All 4 camera profiles received. Initializing processing models...")
     
-    db[current_user]["credits"] -= 1
-    save_db(db)
+        db[current_user]["credits"] -= 1
+        save_db(db)
     
-    paths = []
-    for idx, f in enumerate([file1, file2, file3, file4]):
-        t_path = f"temp_angle_{idx}.mp4"
-        with open(t_path, "wb") as out:
-            out.write(f.read())
-        paths.append(t_path)
+        paths = []
+        for idx, f in enumerate([file1, file2, file3, file4]):
+            t_path = f"temp_angle_{idx}.mp4"
+            with open(t_path, "wb") as out:
+                out.write(f.read())
+            paths.append(t_path)
         
-    caps = [cv2.VideoCapture(p) for p in paths]
-    total_frames = int(min([c.get(cv2.CAP_PROP_FRAME_COUNT) for c in caps]))
+        caps = [cv2.VideoCapture(p) for p in paths]
+        total_frames = int(min([c.get(cv2.CAP_PROP_FRAME_COUNT) for c in caps]))
     
-    start_stroke_frame = 12
-    peak_backstroke_frame = 38
-    impact_frame = 54
-    tempo_ratio = "2.1 : 1"
-    max_backstroke_dist = "14.2 cm"
-    impact_velocity = "4.8 mph"
-    face_angle_at_impact = "1.2° Open (Slicing Action)"
-    shaft_angle_change = "3.4° Forward Lean Change"
-    wrist_flick_flag = True
-    loop_path_flag = True
+        start_stroke_frame = 12
+        peak_backstroke_frame = 38
+        impact_frame = 54
+        tempo_ratio = "2.1 : 1"
+        max_backstroke_dist = "14.2 cm"
+        impact_velocity = "4.8 mph"
+        face_angle_at_impact = "1.2° Open (Slicing Action)"
+        shaft_angle_change = "3.4° Forward Lean Change"
+        wrist_flick_flag = True
+        loop_path_flag = True
     
     col1, col2 = st.columns(2)
     placeholders = [col1.empty(), col2.empty(), col1.empty(), col2.empty()]

@@ -197,8 +197,8 @@ for frame_idx in range(total_frames):
             import time
             time.sleep(1.5)
             
-    for cap in caps:
-        cap.release()
+        for cap in caps:
+            cap.release()
         
     st.balloons()
     st.success("✅ Analysis complete! 1 credit was consumed from your account balance.")

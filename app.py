@@ -1,5 +1,3 @@
-import os
-os.system("pip install opencv-python-headless reportlab")
 import streamlit as st
 import cv2
 import numpy as np

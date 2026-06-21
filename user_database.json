@@ -1,0 +1,9 @@
+{
+    "admin@sportsanalytics.com": {
+        "password": "admin123",
+        "credits": 9999
+    },
+    "test@sportsanalytics.com": {
+        "password": "password123",
+        "credits": 5
+    }

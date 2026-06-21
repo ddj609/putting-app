@@ -200,7 +200,7 @@ for frame_idx in range(total_frames):
         for cap in caps:
             cap.release()
         
-st.balloons()
+        st.balloons()
         st.success("✅ Analysis complete! 1 credit was consumed from your account balance.")
         
         pdf_filename = "Putting_Analysis_Report.pdf"

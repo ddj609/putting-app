@@ -99,7 +99,7 @@ file2 = st.sidebar.file_uploader("2. Down-The-Line View", type=["mp4", "mov", "a
 file3 = st.sidebar.file_uploader("3. Overhead View", type=["mp4", "mov", "avi"])
 file4 = st.sidebar.file_uploader("4. Target-Line View", type=["mp4", "mov", "avi"])
 
-language = st.sidebar.selectbox("🌐 Select Report Language", ["English", "Español"])
+
 
 TEXTS = {
     "English": {
@@ -120,24 +120,7 @@ TEXTS = {
         "drill1": "• Fix Wrist Flicking: Practice putting with an alignment stick held against the left side of your putter shaft and forearm. Do not allow the stick to break away from your arm during the forward stroke.",
         "drill2": "• Fix Path Loops: Place two alignment sticks on the ground forming a narrow gate slightly wider than your putter head. Practice hitting straight putts without touching either stick to smooth out your loop."
     },
-    "Español": {
-        "title": "INFORME PROFESIONAL DE ANÁLISIS DE PUTTING",
-        "intro": "Este documento de diagnóstico detalla la mecánica de su golpe de putt fotograma a fotograma utilizando 4 ángulos de cámara.",
-        "metrics": "RESUMEN DE MÉTRICAS CLAVE",
-        "tempo": "Relación de Tempo (Atrás vs Adelante):",
-        "max_back": "Distancia Máxima del Backstroke:",
-        "impact_v": "Velocidad de la Cara del Putter al Impacto:",
-        "face_angle": "Ángulo de la Cara al Impacto:",
-        "shaft_lean": "Cambio en la Inclinación de la Varilla:",
-        "diagnosis": "ANÁLISIS DE DIAGNÓSTICO Y NOTAS",
-        "flick_detected": "⚠️ MOVIMIENTO DE MUÑECA DETECTADO: El sistema registró un pico de velocidad abrupto y cambios bruscos en la inclinación de la varilla antes del impacto. Esto indica un 'muñecazo' activo en lugar de un péndulo estable guiado por los hombros, causando un control de distancia inconsistente.",
-        "flick_clean": "✅ GOLPE DE PÉNDULO: La aceleración de la cabeza del putter se mantuvo progresiva y fluida hacia la bola. No se detectó un movimiento errático o manipulación con las manos.",
-        "loop_detected": "⚠️ ERROR DE TRAYECTORIA (BUCLE/LOOP): Su movimiento hacia adelante no trazó la misma línea que el movimiento hacia atrás, creando un efecto de bucle. Esta acción de corte estilo 'tenis slice' imparte un efecto lateral a la bola, desviándola de la línea objetivo.",
-        "loop_clean": "✅ TRAYECTORIA LINEAL PERFECTA: El golpe hacia adelante se mantuvo idéntico al canal de retroceso. La cabeza del putter hizo un contacto limpio y centrado sin efecto de corte lateral.",
-        "advice_title": "EJERCICIOS PRÁCTICOS RECOMENDADOS",
-        "drill1": "• Corregir Muñecazo: Practique el putt sosteniendo una varilla de alineación contra el lado izquierdo de la varilla del putter y su antebrazo. No permita que la varilla se separe de su brazo.",
-        "drill2": "• Corregir Bucle/Loop: Coloque dos varillas de alineación en el suelo formando un canal estrecho. Practique dar golpes sin tocar ninguna de las dos varillas para limpiar su trayectoria."
-    }
+    
 }
 
     if file1 and file2 and file3 and file4:
@@ -167,10 +150,10 @@ TEXTS = {
         wrist_flick_flag = True
         loop_path_flag = True
     
-    col1, col2 = st.columns(2)
-    placeholders = [col1.empty(), col2.empty(), col1.empty(), col2.empty()]
-    labels = ["FACE-ON VIEW", "DOWN-THE-LINE VIEW", "OVERHEAD VIEW", "TARGET-LINE VIEW"]
-for frame_idx in range(total_frames):
+        col1, col2 = st.columns(2)
+        placeholders = [col1.empty(), col2.empty(), col1.empty(), col2.empty()]
+        labels = ["FACE-ON VIEW", "DOWN-THE-LINE VIEW", "OVERHEAD VIEW", "TARGET-LINE VIEW"]
+        for frame_idx in range(total_frames):
         frames = []
         for c_idx, cap in enumerate(caps):
             ret, frame = cap.read()

@@ -119,11 +119,11 @@ TEXTS = {
         "advice_title": "ACTIONABLE DRILLS FOR YOUR NEXT PRACTICE",
         "drill1": "• Fix Wrist Flicking: Practice putting with an alignment stick held against the left side of your putter shaft and forearm. Do not allow the stick to break away from your arm during the forward stroke.",
         "drill2": "• Fix Path Loops: Place two alignment sticks on the ground forming a narrow gate slightly wider than your putter head. Practice hitting straight putts without touching either stick to smooth out your loop."
-    },
+    }
     
 }
 
-    if file1 and file2 and file3 and file4:
+    if file1 and file2 and file3 and file4:a
         st.success("All 4 camera profiles received. Initializing processing models...")
     
         db[current_user]["credits"] -= 1

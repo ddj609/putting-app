@@ -19,7 +19,7 @@ def save_db(data):
     with open(DB_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-st.set_page_config(page_title="Multi-Angle Analysis Portal", layout="wide")
+st.set_page_config(page_title="Putting Dynamics | Bio-Mechanical Analysis", layout="wide")
 
 db = load_db()
 
@@ -29,7 +29,7 @@ if "current_user" not in st.session_state:
     st.session_state["current_user"] = None
 
 if not st.session_state["authenticated"]:
-    st.title("⛳ Professional Multi-Angle Analysis System")
+    st.title("⛳ Putting Dynamics | Bio-Mechanical Analysis")
     st.subheader("🔒 Access Portal: Please Log In or Register")
     
     tab1, tab2 = st.tabs(["Existing Client Login", "New Client Registration"])
@@ -95,14 +95,14 @@ else:
         st.sidebar.write(f"**Logged in as:** {current_user}")
         st.sidebar.write(f"**Available Analysis Credits:** {db[current_user]['credits']}")
         
-        st.title("⛳ Professional Multi-Angle Putting Analysis System")
+        st.title("⛳ Putting Dynamics | Bio-Mechanical Analysis")
         st.write("Upload 4 camera angles simultaneously to generate a synchronized real-time vision tracking grid.")
         
         st.sidebar.header("📁 Step 1: Upload Video Files")
-        file1 = st.sidebar.file_uploader("1. Face-On View", type=["mp4", "mov", "avi"])
-        file2 = st.sidebar.file_uploader("2. Down-The-Line View", type=["mp4", "mov", "avi"])
-        file3 = st.sidebar.file_uploader("3. Overhead View", type=["mp4", "mov", "avi"])
-        file4 = st.sidebar.file_uploader("4. Target-Line View", type=["mp4", "mov", "avi"])
+        file1 = st.sidebar.file_uploader("Upload Video 1", type=["mp4", "mov", "avi"])
+        file2 = st.sidebar.file_uploader("Upload Video 2", type=["mp4", "mov", "avi"])
+        file3 = st.sidebar.file_uploader("Upload Video 3", type=["mp4", "mov", "avi"])
+        file4 = st.sidebar.file_uploader("Upload Video 4", type=["mp4", "mov", "avi"])
         
         if file1 and file2 and file3 and file4:
             if db[current_user]["credits"] <= 0:

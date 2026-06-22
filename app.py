@@ -99,10 +99,10 @@ else:
         st.write("Upload 4 camera angles simultaneously to generate a synchronized real-time vision tracking grid.")
         
         st.sidebar.header("📁 Step 1: Upload Video Files")
-        file1 = st.sidebar.file_uploader("Upload Video 1", type=["mp4", "mov", "avi"])
-        file2 = st.sidebar.file_uploader("Upload Video 2", type=["mp4", "mov", "avi"])
-        file3 = st.sidebar.file_uploader("Upload Video 3", type=["mp4", "mov", "avi"])
-        file4 = st.sidebar.file_uploader("Upload Video 4", type=["mp4", "mov", "avi"])
+        file1 = st.file_uploader("Upload Video 1", type=["mp4", "mov", "avi"])
+        file2 = st.file_uploader("Upload Video 2", type=["mp4", "mov", "avi"])
+        file3 = st.file_uploader("Upload Video 3", type=["mp4", "mov", "avi"])
+        file4 = st.file_uploader("Upload Video 4", type=["mp4", "mov", "avi"])
         
         if file1 and file2 and file3 and file4:
             if db[current_user]["credits"] <= 0:
